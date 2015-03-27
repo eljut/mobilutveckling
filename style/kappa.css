@@ -1,0 +1,52 @@
+/*Prevent text size change on orientation change.*/
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	margin: 0;
+}
+
+#map-canvas {
+	height: 80%;
+}
+
+#other {
+	height: 20%;
+	background: #c4d3a6;
+}
+
+#ctrl-div {
+	padding: 10px;
+}
+
+#ctrl-ui {
+	background: #fff;
+	border: solid 4px #99f;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 10px;
+}
+
+#chicago-btn {
+	font-size: 12px;
+	padding: 10px;
+}
+
+#marker-div {
+	padding: 10px;
+}
+
+#marker-ui {
+	background: #fff;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 10px;
+	padding: 10px;
+}
