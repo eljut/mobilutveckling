@@ -38,6 +38,27 @@ window.onload = function() {
   newYorkBtn.index = 2;
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newYorkBtn);
 
+  // Create changeMapType button
+
+  var changeMapBtn = document.createElement('div');
+  changeMapBtn.id = "changemap-btn";
+  changeMapBtn.className = "map-btn";
+  changeMapBtn.title = 'Change View';
+  changeMapBtn.innerHTML = '<select id="map-options">'+
+                            '<option value="SATELLITE">Satellite</option>'+
+                            '<option value="ROADMAP">Roadmap</option>'+
+                            '<option value="TERRAIN">Terrain</option>'+
+                            '</select>';
+  changeMapBtn.index = 3;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(changeMapBtn);
+  
+  google.maps.event.addDomListener(changeMapBtn, 'change', function() {
+    var selectedOpt = document.getElementById("map-options");
+    var mapType = selectedOpt.options[selectedOpt.selectedIndex].value;
+    console.log(mapType);
+    map.setMapTypeId(google.maps.MapTypeId[mapType]);
+  });
+
   // Create marker controller
   function markerCtrl(markerBtn,map,drag) {
     markerBtn.title = 'Click to set marker';
