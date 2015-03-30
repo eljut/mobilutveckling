@@ -8,59 +8,174 @@ window.onload = function() {
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
   
-  // Go to places
-  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+  // Places we can go!
+  var newYork = new google.maps.LatLng(40.714764, -74.008177);
   var kth = new google.maps.LatLng(59.347327, 18.073537);
 
-  function chicagoControl(ctrlDiv,map) {
-    var ctrlUI = document.createElement('div');
-    ctrlUI.id = "ctrl-ui";
-    ctrlUI.title = 'Click for CHICAGO';
-    ctrlDiv.appendChild(ctrlUI);
+  // Create KTH button
+  var kthBtn = document.createElement('div');
+  kthBtn.id = "kth-btn";
+  kthBtn.title = 'Click for KTH';
+  kthBtn.className = "map-btn";
+  kthBtn.innerHTML = '<strong>KTH</strong>';
+  google.maps.event.addDomListener(kthBtn, 'click', function() {
+    map.setCenter(kth);
+    map.setZoom(18);
+  });
+  kthBtn.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(kthBtn);
 
-    var ctrlText = document.createElement('div');
-    ctrlText.id = "chicago-btn";
-    ctrlText.innerHTML = '<strong>Chicago</strong>';
-    ctrlUI.appendChild(ctrlText);
+  // Create newYork button
+  var newYorkBtn = document.createElement('div');
+  newYorkBtn.id = "new-york-btn";
+  newYorkBtn.className = "map-btn";
+  newYorkBtn.title = 'Click for New York';
+  newYorkBtn.innerHTML = '<strong>New York</strong>';
+  google.maps.event.addDomListener(newYorkBtn, 'click', function() {
+    map.setCenter(newYork);
+    map.setZoom(18);
+  });
+  newYorkBtn.index = 2;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newYorkBtn);
 
-    google.maps.event.addDomListener(ctrlUI, 'click', function() {
-      map.setCenter(chicago)
+  // Create marker controller
+  function markerCtrl(markerBtn,map,drag) {
+    markerBtn.title = 'Click to set marker';
+    markerBtn.className = "map-btn";
+    if (drag) {
+      markerBtn.innerHTML = '<strong>Set drag marker</strong>';
+      var pinColor = "47C399";
+    } else {
+      markerBtn.innerHTML = '<strong>Set non-drag marker</strong>';
+      var pinColor = "692049";
+    }
+
+    // Custom pin
+    var pinImage = new google.maps.MarkerImage(
+      "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+      null,
+      null,
+      null,
+      new google.maps.Size(25, 41)
+    );
+    var swePin = new google.maps.MarkerImage(
+      "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=flag_se|bb|KTH!|"+pinColor+"|FFFFFF",
+      null,
+      null,
+      new google.maps.Point(0,45), // offset point
+      null
+    );
+
+    // Add pin on click
+    google.maps.event.addDomListener(markerBtn, 'click', function() {
+      var center = map.getCenter();
+      if (center.lat() === kth.lat() && center.lng() === kth.lng()) {
+        var marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          draggable: drag,
+          icon: swePin,
+          animation: google.maps.Animation.DROP
+        });
+      } else {
+        var marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          draggable: drag,
+          icon: pinImage,
+          animation: google.maps.Animation.DROP
+        });
+      }
+
+      if (drag) {
+        // Bounce when mouseover a draggable marker
+        google.maps.event.addListener(marker, 'mouseover', function() {
+          if (this.getAnimation() == null) {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        });
+        google.maps.event.addListener(marker, 'mouseout', function() {
+          if (this.getAnimation() != null) {
+            this.setAnimation(null);
+          }
+        });
+      }
     });
   }
 
-  // Create a div to hold the control.
-  var ctrlDiv = document.createElement('div');
-  ctrlDiv.id = "ctrl-div";
+  // Draggable marker div
+  var markerBtn = document.createElement('div');
+  markerBtn.id = "drag-marker-btn";
+  var markerControl = new markerCtrl(markerBtn,map,true);
+  markerBtn.index = 1;
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(markerBtn);
 
-  var chicagoControl = new chicagoControl(ctrlDiv,map);
-  ctrlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(ctrlDiv);
+  // Non-draggable marker div
+  var markerBtn = document.createElement('div');
+  markerBtn.id = "non-drag-marker-btn";
+  var markerControl = new markerCtrl(markerBtn,map,false);
+  markerBtn.index = 2;
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(markerBtn);
 
-  // Set marker
-  function markerCtrl(markerDiv,map) {
-    var markerUI = document.createElement('div');
-    markerUI.id = "marker-ui";
-    markerUI.title = 'Click to set marker';
-    markerUI.innerHTML = '<strong>Set marker</strong>';
-    markerDiv.appendChild(markerUI);
+  // Position controllers
+  var positionDiv = document.createElement('div');
+  positionDiv.id = "position-ctrl";
+  // Up button
+  var upCtrl = document.createElement('div');
+  upCtrl.id = "up-btn";
+  upCtrl.className = "map-btn";
+  upCtrl.title = 'Up!';
+  upCtrl.innerHTML = '<strong>Up</strong>';
+  google.maps.event.addDomListener(upCtrl, 'click', function() {
+    changePos(0.001,0);
+  });
+  // Left button
+  var leftCtrl = document.createElement('div');
+  leftCtrl.className = "map-btn";
+  leftCtrl.id = "left-btn";
+  leftCtrl.title = 'Left!';
+  leftCtrl.innerHTML = '<strong>Left</strong>';
+  google.maps.event.addDomListener(leftCtrl, 'click', function() {
+    changePos(0,-0.001);
+  });
+  // Down button
+  var downCtrl = document.createElement('div');
+  downCtrl.className = "map-btn";
+  downCtrl.id = "down-btn";
+  downCtrl.title = 'Down!';
+  downCtrl.innerHTML = '<strong>Down</strong>';
+  google.maps.event.addDomListener(downCtrl, 'click', function() {
+    changePos(-0.001,0);
+  });
+  // Right button
+  var rightCtrl = document.createElement('div');
+  rightCtrl.className = "map-btn";
+  rightCtrl.id = "right-btn";
+  rightCtrl.title = 'Right!';
+  rightCtrl.innerHTML = '<strong>Right</strong>';
+  google.maps.event.addDomListener(rightCtrl, 'click', function() {
+    changePos(0,0.001);
+  });
 
-    google.maps.event.addDomListener(markerUI, 'click', function() {
-      var marker = new google.maps.Marker({
-        position: map.getCenter(),
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP
-      });
-    });
+  // Add controllers to positionDiv
+  positionDiv.appendChild(upCtrl);
+  positionDiv.appendChild(leftCtrl);
+  positionDiv.appendChild(downCtrl);
+  positionDiv.appendChild(rightCtrl);
+
+  // Add to DOM
+  var bottomDiv = document.getElementById("bottom");
+  bottomDiv.appendChild(positionDiv);
+
+  // positionDiv.index = 1;
+  // map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(positionDiv);
+
+  function changePos(lat,lng) {
+    var center = map.getCenter();
+    var newCenter = new google.maps.LatLng(center.lat() + lat, center.lng() + lng);
+    map.setCenter(newCenter);
+    console.log(newCenter)
   }
-
-  // Create a div to hold the control.
-  var markerDiv = document.createElement('div');
-  markerDiv.id = "marker-div";
-
-  var markerControl = new markerCtrl(markerDiv,map);
-  markerDiv.index = 2;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(markerDiv);
 
   function setMapStyle(type) {
     if (type === 'TERRAIN') {
@@ -70,7 +185,5 @@ window.onload = function() {
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
     }
   }
-
-  
 
 };

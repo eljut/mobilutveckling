@@ -4,10 +4,13 @@
     <title>Kappa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style/kappa.css">
+    <link rel="stylesheet" type="text/css" href="fonts.googleapis.com/css?family=Quicksand" />
     <!-- CONFIGURATION -->
     <!-- Allow web app to be run in full-screen mode. -->
-    <meta name="apple-mobile-web-app-capable"
-          content="yes">
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Make the app title different than the page title. -->
     <meta name="apple-mobile-web-app-title"
           content="iOS 8 web app">
@@ -120,9 +123,7 @@
   </head>
  
   <body>
-    <div id="other">
-      <h1>Kappa</h1>
-    </div>
     <div id="map-canvas"></div>
+    <div id="bottom"><span id="wow">Controls! WOW!</span></div>
   </body>
 </html>
