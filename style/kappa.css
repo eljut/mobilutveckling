@@ -10,16 +10,20 @@ html, body {
 }
 
 h1 {
+	padding-top: 5px;
 	margin: 0;
+	color: #15b9a1;
+	font: 26pt Quicksand, arial;
 }
 
 #map-canvas {
-	height: 85%;
+	height: 90%;
 }
 
-#bottom {
-	height: 15%;
-	background: #f0eae2;
+#top {
+	height: 10%;
+	background: #000; /*f0eae2*/
+	text-align: center;
 }
 
 .map-btn {
@@ -46,11 +50,6 @@ h1 {
 
 #new-york-btn {
 	
-}
-
-#wow {
-	color: #4eb5a6;
-	font: 16pt Quicksand, arial;
 }
 
 #up-btn {
