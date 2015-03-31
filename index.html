@@ -4,6 +4,8 @@
     <title>Kappa</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=1">
     <link rel="stylesheet" type="text/css" href="style/kappa.css">
+    
+    <link rel="stylesheet" href="style/animate.min.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Quicksand" />
 
     <!-- Icon -->
@@ -77,8 +79,8 @@
     </script>
 
     <!-- JavaScripts -->
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3"></script>
-    <script scr="js/jquery-2.1.3.min.js"></script>
     <script src="js/script.js"></script>
     <!--
     https://console.developers.google.com/project/dm2518-kappa/apiui/credential#
@@ -88,7 +90,18 @@
   </head>
  
   <body>
-    <div id="top"><h1>Kappa</h1></div>
+    <div id="top">
+      <h1 id="title" class="animated tada">Kappa</h1>
+      <input id="sidebar-toggle" type="checkbox" value="1">
+      <label for="sidebar-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </label>
+      <div id="sidebar">
+        <button type="button" class="map-btn">hej</button>
+      </div>
+    </div>
     <div id="map-canvas"></div>
   </body>
 </html>

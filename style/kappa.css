@@ -9,11 +9,11 @@ html, body {
 	padding: 0;
 }
 
-h1 {
-	padding-top: 5px;
-	margin: 0;
-	color: #15b9a1;
-	font: 26pt Quicksand, arial;
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(Quicksand-Regular.ttf) format('truetype');
 }
 
 #map-canvas {
@@ -24,6 +24,71 @@ h1 {
 	height: 10%;
 	background: #000; /*f0eae2*/
 	text-align: center;
+}
+
+#title {
+	position: relative;
+	left: 30px;
+	display: inline;
+	padding-top: 5px;
+	margin: 0;
+	color: #15b9a1;
+	font: 26pt Quicksand, arial;
+}
+
+#sidebar-toggle {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+    visibility: hidden;
+}
+
+#sidebar-toggle + label {
+	float: right;
+	margin-top: 8px;
+	margin-right: 10px;
+    z-index: 9001;
+    background: #302f39;
+    border-radius: 3px;
+    display: block;
+    padding: 13px 9px;
+    -webkit-transition:  left 0.25s ease-in-out;
+    -moz-transition:  left 0.25s ease-in-out;
+    -ms-transition:  left 0.25s ease-in-out;
+    -o-transition:  left 0.25s ease-in-out;
+    transition:  left 0.25s ease-in-out;
+}
+
+#sidebar-toggle + label .bar{
+    display: block;
+    width: 19px;
+    margin-bottom: 3px;
+    height: 2px;
+    background-color: #eeebdf;
+    border-radius: 1px;   
+}
+
+#sidebar-toggle + label .bar:last-child{
+     margin-bottom: 0;   
+}
+
+#sidebar {
+	display: none;
+	position: absolute;
+    z-index: 9001;
+    right: 0;
+    top: 10%;
+    width: 160px;
+    height: 90%;
+    background: #302f39;
+}
+
+#sidebar-toggle:checked + label {
+	background: #504f59;
+}
+
+#sidebar-toggle:checked + label +  #sidebar {
+	display: block;
 }
 
 .map-btn {

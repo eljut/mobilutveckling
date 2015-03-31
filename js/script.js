@@ -137,13 +137,16 @@ window.onload = function() {
   markerBtn.index = 2;
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(markerBtn);
 
-  function setMapStyle(type) {
-    if (type === 'TERRAIN') {
-      map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-    }
-    else if (type === 'HYBRID') {
-      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+  // Sidebar
+  var sidebarToggle = document.getElementById("sidebar-toggle");
+  var sidebar = document.getElementById("sidebar");
+  sidebarToggle.onclick = function() {
+    if (sidebarToggle.checked) {
+      sidebar.className = "animated fadeInRight";
+    } else {
+      sidebar.className = "animated fadeOutRight";
     }
   }
+  //$('#sidebar').addClass('animated bounceOutLeft');
 
 };
