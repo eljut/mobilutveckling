@@ -11,6 +11,8 @@ window.onload = function() {
   // Places we can go!
   var newYork = new google.maps.LatLng(40.714764, -74.008177);
   var kth = new google.maps.LatLng(59.347327, 18.073537);
+  var ellinorsHus = new google.maps.LatLng(59.427744, 18.083370);
+  var hammarbyB = new google.maps.LatLng(59.298957, 18.109252);
 
   // Create KTH button
   var kthBtn = document.createElement('div');
@@ -41,7 +43,6 @@ window.onload = function() {
   // Create changeMapType button
   var changeMapBtn = document.createElement('div');
   changeMapBtn.id = "changemap-btn";
-  changeMapBtn.className = "map-btn";
   changeMapBtn.title = 'Change View';
   changeMapBtn.innerHTML = '<select id="map-options">'+
                             '<option value="SATELLITE">Satellite</option>'+
@@ -148,5 +149,50 @@ window.onload = function() {
     }
   }
   //$('#sidebar').addClass('animated bounceOutLeft');
+
+  // Markers with infoWindow
+  var ellinorMarker = new google.maps.Marker({
+    position: ellinorsHus,
+    map: map,
+    title: 'Ellinors Hus'
+  });
+
+  var ellinorContent = '<div id="ellinorInfo">'+
+      '<h1 class="firstHeading">Ellinors Hus</h1>'+
+      '<div class="bodyContent">'+
+      '<p>Here be monsters</p>'+
+      '<img src="http://1.media.dorkly.cvcdn.com/29/82/20befd0953a3cc8f9cd8b2aaa8a4d3d7.gif" alt="smashing" height="100">'+
+      '</div>'+
+      '</div>';
+
+  var ellinorInfo = new google.maps.InfoWindow({
+      content: ellinorContent
+  });
+
+  google.maps.event.addListener(ellinorMarker, 'click', function() {
+    ellinorInfo.open(map,ellinorMarker);
+  });
+
+  var hammarbyMarker = new google.maps.Marker({
+    position: hammarbyB,
+    map: map,
+    title: 'Hammarbybacken'
+  });
+
+  var hammarbyContent = '<div id="hammarbyInfo">'+
+    '<div id="hammarbyImgDiv"></div>'+
+    '<h1 class="firstHeading">Hammarbybacken</h1>'+
+    '<div class="bodyContent">'+
+    '<p>Här kan vara om man känner för att vara någonstans.</p>'+
+    '</div>'+
+    '</div>';
+
+  var hammarbyInfo = new google.maps.InfoWindow({
+      content: hammarbyContent
+  });
+
+  google.maps.event.addListener(hammarbyMarker, 'click', function() {
+    hammarbyInfo.open(map,hammarbyMarker);
+  });
 
 };

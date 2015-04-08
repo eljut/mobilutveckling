@@ -117,6 +117,15 @@ html, body {
 	
 }
 
+#changemap-btn {
+	cursor: pointer;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 12px;
+	padding: 10px;
+	margin: 10px;
+}
+
 #up-btn {
 	position: absolute;
 	bottom: 7%;
@@ -156,3 +165,11 @@ html, body {
 #drag-marker-btn, #non-drag-marker-btn {
 	
 }
+
+#hammarbyImgDiv {
+	height: 200px;
+	width: 100%;
+	background-image: url("http://i.imgur.com/RHP2VV9.jpg");
+	background-size: 350px;
+}
+
