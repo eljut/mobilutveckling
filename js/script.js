@@ -3,10 +3,10 @@ window.onload = function() {
     center: { lat: 59.347327, lng: 18.073537},
     zoom: 18,
     mapTypeId: google.maps.MapTypeId.HYBRID,
-    disableDefaultUI: true,
-    zoomControl: true
+    disableDefaultUI: true
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+  var sidebar = document.getElementById('sidebar');
   
   // Places we can go!
   var newYork = new google.maps.LatLng(40.714764, -74.008177);
@@ -28,17 +28,18 @@ window.onload = function() {
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(kthBtn);
 
   // Create newYork button
-  var newYorkBtn = document.createElement('div');
+  var newYorkBtn = document.createElement('button');
   newYorkBtn.id = "new-york-btn";
-  newYorkBtn.className = "map-btn";
+  newYorkBtn.className = "sidebar-btn";
   newYorkBtn.title = 'Click for New York';
   newYorkBtn.innerHTML = '<strong>New York</strong>';
   google.maps.event.addDomListener(newYorkBtn, 'click', function() {
     map.setCenter(newYork);
     map.setZoom(18);
   });
-  newYorkBtn.index = 2;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newYorkBtn);
+  // newYorkBtn.index = 2;
+  // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newYorkBtn);
+  sidebar.appendChild(newYorkBtn);
 
   // Create changeMapType button
   var changeMapBtn = document.createElement('div');
@@ -50,7 +51,7 @@ window.onload = function() {
                             '<option value="TERRAIN">Terrain</option>'+
                             '</select>';
   changeMapBtn.index = 3;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(changeMapBtn);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(changeMapBtn);
   
   google.maps.event.addDomListener(changeMapBtn, 'change', function() {
     var selectedOpt = document.getElementById("map-options");
@@ -173,6 +174,18 @@ window.onload = function() {
     ellinorInfo.open(map,ellinorMarker);
   });
 
+  // Button to go to ellinorMarker
+  var ellinorBtn = document.createElement('button');
+  ellinorBtn.id = "ellinor-btn";
+  ellinorBtn.title = "Click for Ellinor's house";
+  ellinorBtn.className = "sidebar-btn";
+  ellinorBtn.innerHTML = "<strong>Ellinor's house</strong>";
+  google.maps.event.addDomListener(ellinorBtn, 'click', function() {
+    map.setCenter(ellinorsHus);
+    map.setZoom(18);
+  });
+  sidebar.appendChild(ellinorBtn);
+
   var hammarbyMarker = new google.maps.Marker({
     position: hammarbyB,
     map: map,
@@ -180,7 +193,7 @@ window.onload = function() {
   });
 
   var hammarbyContent = '<div id="hammarbyInfo">'+
-    '<div id="hammarbyImgDiv"></div>'+
+    '<img src="http://i.imgur.com/RHP2VV9.jpg" alt="Hammarbybacken" height="200">'+
     '<h1 class="firstHeading">Hammarbybacken</h1>'+
     '<div class="bodyContent">'+
     '<p>Här kan vara om man känner för att vara någonstans.</p>'+
@@ -194,5 +207,64 @@ window.onload = function() {
   google.maps.event.addListener(hammarbyMarker, 'click', function() {
     hammarbyInfo.open(map,hammarbyMarker);
   });
+
+  // Button to go to hammarbyMarker
+  var hammarbyBtn = document.createElement('button');
+  hammarbyBtn.id = "hammarby-btn";
+  hammarbyBtn.title = "Click for Hammarbybacken";
+  hammarbyBtn.className = "sidebar-btn";
+  hammarbyBtn.innerHTML = "<strong>Hammarbybacken</strong>";
+  google.maps.event.addDomListener(hammarbyBtn, 'click', function() {
+    map.setCenter(hammarbyB);
+    map.setZoom(18);
+  });
+  sidebar.appendChild(hammarbyBtn);
+
+  // Get current position
+  var topText = document.getElementById('top-text');
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showLocationError);
+    } else {
+      topText.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    var latlon = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    map.setCenter(latlon);
+    map.setZoom(18);
+  }
+
+  function showLocationError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        topText.innerHTML = "User denied the request for Geolocation."
+        break;
+      case error.POSITION_UNAVAILABLE:
+        topText.innerHTML = "Location information is unavailable."
+        break;
+      case error.TIMEOUT:
+        topText.innerHTML = "The request to get user location timed out."
+        break;
+      case error.UNKNOWN_ERROR:
+        topText.innerHTML = "An unknown error occurred."
+        break;
+    }
+  }
+
+  // Button to go to current position
+  var hereBtn = document.createElement('button');
+  hereBtn.id = "here-btn";
+  hereBtn.title = "Click for here!";
+  hereBtn.className = "map-btn";
+  hereBtn.innerHTML = "<strong>here</strong>";
+  google.maps.event.addDomListener(hereBtn, 'click', function() {
+    getLocation();
+  });
+  hereBtn.index = 2;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(hereBtn);
+  //sidebar.appendChild(hereBtn);
 
 };

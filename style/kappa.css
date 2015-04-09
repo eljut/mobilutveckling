@@ -26,6 +26,13 @@ html, body {
 	text-align: center;
 }
 
+#top-text {
+	color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 #title {
 	position: relative;
 	left: 30px;
@@ -83,6 +90,31 @@ html, body {
     background: #302f39;
 }
 
+.sidebar-btn {
+	width: 90%;
+	height: 40px;
+	padding: .5em 1em;
+	margin: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	color: rgba(0,0,0,.8);
+	border: 0 rgba(0,0,0,0);
+	background-color: #F6F6F6;
+	text-decoration: none;
+	border-radius: 5px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+}
+
+.sidebar-btn:active {
+	-webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.7);
+}
+
 #sidebar-toggle:checked + label {
 	background: #504f59;
 }
@@ -92,7 +124,7 @@ html, body {
 }
 
 .map-btn {
-	background: #fff;
+	background: #F6F6F6;
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	cursor: pointer;
