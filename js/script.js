@@ -139,16 +139,16 @@ window.onload = function() {
   markerBtn.index = 2;
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(markerBtn);
 
-  // Sidebar
-  var sidebarToggle = document.getElementById("sidebar-toggle");
-  var sidebar = document.getElementById("sidebar");
-  sidebarToggle.onclick = function() {
-    if (sidebarToggle.checked) {
-      sidebar.className = "animated fadeInRight";
-    } else {
-      sidebar.className = "animated fadeOutRight";
-    }
-  }
+  // Sidebar fade in animation
+  // var sidebarToggle = document.getElementById("sidebar-toggle");
+  // var sidebar = document.getElementById("sidebar");
+  // sidebarToggle.onclick = function() {
+  //   if (sidebarToggle.checked) {
+  //     sidebar.className = "animated fadeInRight";
+  //   } else {
+  //     sidebar.className = "animated fadeOutRight";
+  //   }
+  // }
   //$('#sidebar').addClass('animated bounceOutLeft');
 
   // Markers with infoWindow

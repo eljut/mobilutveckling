@@ -1,0 +1,34 @@
+CACHE MANIFEST
+
+CACHE:
+./
+./style/kappa.css
+./style/addtohomescreen.css
+./style/animate.min.css
+./style/Quicksand-Regular.ttf
+./js/script.js
+./js/addtohomescreen.min.js
+./images/icon/favicon-96x96.png
+
+
+FALLBACK:
+./ ./offline.html
+
+NETWORK:
+http://maps.gstatic.com/
+http://maps.google.com/
+http://maps.googleapis.com/
+http://mt0.googleapis.com/
+http://mt1.googleapis.com/
+http://mt2.googleapis.com/
+http://mt3.googleapis.com/
+http://khm0.googleapis.com/
+http://khm1.googleapis.com/
+http://cbk0.googleapis.com/
+http://cbk1.googleapis.com/
+http://www.google-analytics.com/
+http://gg.google.com/
+http://csi.gstatic.com/
+#./style/kappa.css
+#./js/script.js
+*
