@@ -96,6 +96,7 @@ html, body {
     background: #000;
     overflow: hidden;
     opacity: 0.6;
+    filter: alpha(opacity=60);
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
     -ms-transition: 0.1s ease-in-out;
@@ -133,10 +134,19 @@ html, body {
 }
 
 #sidebar-toggle:checked + label +  #sidebar {
-	/*display: block;*/
+	zoom: 1;
 	opacity: 1;
+	filter: alpha(opacity=100);
 	background: #302f39;
 	height: 180px;
+}
+
+.isShowing {
+	zoom: 1 !important;
+	opacity: 1 !important;
+	filter: alpha(opacity=100) !important;
+	background: #302f39 !important;
+	height: 180px !important;
 }
 
 .map-btn {

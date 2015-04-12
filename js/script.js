@@ -7,6 +7,15 @@ window.onload = function() {
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
   var sidebar = document.getElementById('sidebar');
+  var sidebarToggle = document.getElementById('sidebar-toggle');
+  sidebarToggle.addEventListener("change", function(){
+    console.log("hej");
+    if ((' ' + sidebar.className + ' ').indexOf(' isShowing ') > -1) {
+      sidebar.className = "";
+    } else {
+      sidebar.className = "isShowing";
+    }
+  });
   
   // Places we can go!
   var newYork = new google.maps.LatLng(40.714764, -74.008177);
